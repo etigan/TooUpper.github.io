@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="环境配置arch LinuxWSL21.勾选适用于Linux的Windows子系统后重启 2.启用虚拟机功能安装 WSL 2 之前，必须启用“虚拟机平台”可选功能。 计算机需要虚拟化功能才能使用此功能。 以管理员身份打开 PowerShell 并运行： 1dism.exe &#x2F;online &#x2F;enable-feature &#x2F;featurename:VirtualMachinePlatform &#x2F;al">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL2环境配置">
+<meta property="og:url" content="https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="环境配置arch LinuxWSL21.勾选适用于Linux的Windows子系统后重启 2.启用虚拟机功能安装 WSL 2 之前，必须启用“虚拟机平台”可选功能。 计算机需要虚拟化功能才能使用此功能。 以管理员身份打开 PowerShell 并运行： 1dism.exe &#x2F;online &#x2F;enable-feature &#x2F;featurename:VirtualMachinePlatform &#x2F;al">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tooupper.com/blogimg/os/tuos/tuos01.png">
+<meta property="og:image" content="c:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240328223853499.png">
+<meta property="og:image" content="c:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240329115249869.png">
+<meta property="article:published_time" content="2024-03-28T11:16:00.000Z">
+<meta property="article:modified_time" content="2024-04-04T09:24:27.482Z">
+<meta property="article:author" content="kay">
+<meta property="article:tag" content="OS">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tooupper.com/blogimg/os/tuos/tuos01.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>WSL2环境配置</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">博主</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/TooUpper">项目</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/Git/%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/Rust/basic/%E7%89%88%E6%9C%AC/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&text=WSL2环境配置"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&is_video=false&description=WSL2环境配置"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WSL2环境配置&body=Check out this article: https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&name=WSL2环境配置&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&t=WSL2环境配置"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#arch-Linux"><span class="toc-number">1.1.</span> <span class="toc-text">arch Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WSL2"><span class="toc-number">1.1.1.</span> <span class="toc-text">WSL2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8B%BE%E9%80%89%E9%80%82%E7%94%A8%E4%BA%8ELinux%E7%9A%84Windows%E5%AD%90%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%87%8D%E5%90%AF"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1.勾选适用于Linux的Windows子系统后重启</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%AF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">2.启用虚拟机功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%8B%E8%BD%BDLinux%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E5%8C%85"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">3.下载Linux内核更新包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%B0%86WSL2%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">4.将WSL2设置为默认版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%AE%89%E8%A3%85%E6%89%80%E9%80%89%E7%9A%84Linux%E5%88%86%E5%8F%91"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">5.安装所选的Linux分发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83%E7%9A%84wsl%E7%89%88%E6%9C%AC%E5%92%8C%E5%AF%B9%E5%BA%94%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">6.查看当前环境的wsl版本和对应子系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%B3%A8%E9%94%80%E5%AE%89%E8%A3%85%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7"><span class="toc-number">1.1.1.7.</span> <span class="toc-text">7.注销安装的Linux子系统账户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%88%A0%E9%99%A4%E5%AE%89%E8%A3%85%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.1.8.</span> <span class="toc-text">8.删除安装的Linux子系统</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-number">1.2.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c-Rust-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">c&#x2F;Rust 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9B%B4%E6%96%B0-%E5%90%8C%E6%AD%A5arch-Linux%E5%86%85%E6%A0%B8"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1.更新&#x2F;同步arch Linux内核</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">2.C开发环境配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Rust%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">3.Rust开发环境配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qemu%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">Qemu模拟器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4-QEMU-%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">确认 QEMU 的版本：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text">运行</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        WSL2环境配置
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">kay</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-03-28T11:16:00.000Z" class="dt-published" itemprop="datePublished">2024-03-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/OS/">OS</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/OS/" rel="tag">OS</a>, <a class="p-category" href="/tags/Rust/" rel="tag">Rust</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="arch-Linux"><a href="#arch-Linux" class="headerlink" title="arch Linux"></a>arch Linux</h2><h3 id="WSL2"><a href="#WSL2" class="headerlink" title="WSL2"></a>WSL2</h3><h4 id="1-勾选适用于Linux的Windows子系统后重启"><a href="#1-勾选适用于Linux的Windows子系统后重启" class="headerlink" title="1.勾选适用于Linux的Windows子系统后重启"></a>1.勾选适用于Linux的Windows子系统<strong>后</strong>重启</h4><p><img src="/blogimg/os/tuos/tuos01.png" alt="tuos01"></p>
+<h4 id="2-启用虚拟机功能"><a href="#2-启用虚拟机功能" class="headerlink" title="2.启用虚拟机功能"></a>2.启用虚拟机功能</h4><p>安装 WSL 2 之前，必须启用“虚拟机平台”可选功能。 计算机需要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting#error-0x80370102-the-virtual-machine-could-not-be-started-because-a-required-feature-is-not-installed">虚拟化功能</a>才能使用此功能。</p>
+<p>以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable-feature</span> /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<p><strong>重新启动</strong>计算机，以完成 WSL 安装并更新到 WSL 2。</p>
+<h4 id="3-下载Linux内核更新包"><a href="#3-下载Linux内核更新包" class="headerlink" title="3.下载Linux内核更新包"></a>3.下载Linux内核更新包</h4><p>从<a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">官网</a>下载最新的Linux内核更新包并<strong>安装</strong>；</p>
+<p><strong>管理员</strong>身份打开PowerShell：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl.exe <span class="literal">--update</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-将WSL2设置为默认版本"><a href="#4-将WSL2设置为默认版本" class="headerlink" title="4.将WSL2设置为默认版本"></a>4.将WSL2设置为默认版本</h4><p>打开 PowerShell，然后在安装新的 Linux 发行版时运行以下命令，将 WSL 2 设置为默认版本：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--set-default-version</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-安装所选的Linux分发"><a href="#5-安装所选的Linux分发" class="headerlink" title="5.安装所选的Linux分发"></a>5.安装所选的Linux分发</h4><p>打开 <a target="_blank" rel="noopener" href="https://aka.ms/wslstore">Microsoft Store</a>，并选择你偏好的 Linux 分发版。（我这里使用的是arch Linux）</p>
+<p>首次启动新安装的 Linux 分发版时，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。</p>
+<p>然后，需要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password">为新的 Linux 分发版创建用户帐户和密码</a>。</p>
+<p><img src="C:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240328223853499.png" alt="image-20240328223853499"></p>
+<h4 id="6-查看当前环境的wsl版本和对应子系统"><a href="#6-查看当前环境的wsl版本和对应子系统" class="headerlink" title="6.查看当前环境的wsl版本和对应子系统"></a>6.查看当前环境的wsl版本和对应子系统</h4><p>退出arch Linux：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在Windows终端中键入</span><br><span class="line">wsl <span class="literal">-l</span> <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-注销安装的Linux子系统账户"><a href="#7-注销安装的Linux子系统账户" class="headerlink" title="7.注销安装的Linux子系统账户"></a>7.注销安装的Linux子系统账户</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl <span class="literal">--unregister</span> Arch</span><br></pre></td></tr></table></figure>
+
+<p>（名称要与wsl -l -v 命令中NAME一致）</p>
+<h4 id="8-删除安装的Linux子系统"><a href="#8-删除安装的Linux子系统" class="headerlink" title="8.删除安装的Linux子系统"></a>8.删除安装的Linux子系统</h4><p>此电脑-&gt;应用 -&gt; 安装的应用 删除Arch WSL。</p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Syyu // 防止软件库更新导致某些功能无法使用</span><br><span class="line">sudo pacman -S neovim</span><br><span class="line">sudo nvim /etc/pacman.conf 尾部添加</span><br><span class="line"></span><br><span class="line">[archlinuxcn]</span><br><span class="line">SigLevel = Never</span><br><span class="line">Server = https://mirrors.ustc.edu.cn/$repo/$arch</span><br><span class="line"></span><br><span class="line">顺便开启</span><br><span class="line">[multilib]</span><br><span class="line">Include = /etc/pacman.d/mirrorlist</span><br><span class="line"></span><br><span class="line">sudo pacman -Syyu</span><br><span class="line">sudo pacman -S yay</span><br></pre></td></tr></table></figure>
+
+<h2 id="c-Rust-环境配置"><a href="#c-Rust-环境配置" class="headerlink" title="c&#x2F;Rust 环境配置"></a>c&#x2F;Rust 环境配置</h2><h4 id="1-更新-同步arch-Linux内核"><a href="#1-更新-同步arch-Linux内核" class="headerlink" title="1.更新&#x2F;同步arch Linux内核"></a>1.更新&#x2F;同步arch Linux内核</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Syyu</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里cmd中需要管理员模式启动</strong>（WSL2中不要开梯子）</p>
+<h4 id="2-C开发环境配置"><a href="#2-C开发环境配置" class="headerlink" title="2.C开发环境配置"></a>2.C开发环境配置</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S git base-devel riscv64-linux-gnu-binutils riscv64-linux-gnu-gcc riscv64-linux-gnu-gdb qemu-emulators-full riscv64-elf-gdb</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Rust开发环境配置"><a href="#3-Rust开发环境配置" class="headerlink" title="3.Rust开发环境配置"></a>3.Rust开发环境配置</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --proto &#x27;=https&#x27; --tlsv1.<span class="number">2</span> -sSf https:<span class="comment">//sh.rustup.rs | sh</span></span><br></pre></td></tr></table></figure>
+
+<p>测试是否安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[kay@TooUpper ~]$ cargo --version // 如果cargo无效则重新打开终端进入Linux即可</span><br><span class="line">cargo 1.77.1 (e52e36006 2024-03-26)</span><br><span class="line">[kay@TooUpper ~]$ rustc --version</span><br><span class="line">rustc 1.77.1 (7cf61ebde 2024-03-27)</span><br></pre></td></tr></table></figure>
+
+<p>切换 nightly 版本，并设置为 rustc 的缺省版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rustup install nightly</span><br><span class="line">rustup default nightly</span><br></pre></td></tr></table></figure>
+
+<p>安装一些Rust相关的软件包:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rustup target add riscv64gc-unknown-none-elf</span><br><span class="line">cargo install cargo-binutils</span><br><span class="line">rustup component add llvm-tools-preview</span><br><span class="line">rustup component add rust-src</span><br></pre></td></tr></table></figure>
+
+<h2 id="Qemu模拟器"><a href="#Qemu模拟器" class="headerlink" title="Qemu模拟器"></a>Qemu模拟器</h2><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S qemu</span><br></pre></td></tr></table></figure>
+
+<p>三个选择：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1)qemu-base   2)qemu-desktop   3)qemu-full</span><br></pre></td></tr></table></figure>
+
+<p>第一个提示中提示中选择<code>3</code>，第二个提示默认<code>1</code>即可。</p>
+<h4 id="确认-QEMU-的版本："><a href="#确认-QEMU-的版本：" class="headerlink" title="确认 QEMU 的版本："></a>确认 QEMU 的版本：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-riscv64 --version</span><br><span class="line">qemu-riscv64 --version</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240329115249869.png" alt="image-20240329115249869"></p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>获取代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/rcore-os/rCore-Tutorial-v3.git</span><br><span class="line">cd rCore-Tutorial-v3</span><br><span class="line">git checkout ch1</span><br></pre></td></tr></table></figure>
+
+<p>在Qemu模拟的计算机上运行: （第一次可能会很慢）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">cd os</span><br><span class="line">LOG=TRACE make run</span><br><span class="line"></span><br><span class="line">(rustup target list | grep &quot;riscv64gc-unknown-none-elf (installed)&quot;) || rustup target add riscv64gc-unknown-none-elf</span><br><span class="line">riscv64gc-unknown-none-elf (installed)</span><br><span class="line">cargo install cargo-binutils</span><br><span class="line">    Updating crates.io index</span><br><span class="line">     Ignored package `cargo-binutils v0.3.6` is already installed, use --force to override</span><br><span class="line">rustup component add rust-src</span><br><span class="line">info: component &#x27;rust-src&#x27; is up to date</span><br><span class="line">rustup component add llvm-tools-preview</span><br><span class="line">info: component &#x27;llvm-tools&#x27; for target &#x27;x86_64-unknown-linux-gnu&#x27; is up to date</span><br><span class="line">Platform: qemu</span><br><span class="line">    Finished release [optimized + debuginfo] target(s) in 0.00s</span><br><span class="line">[rustsbi] RustSBI version 0.3.1, adapting to RISC-V SBI v1.0.0</span><br><span class="line">.______       __    __      _______.___________.  _______..______   __</span><br><span class="line">|   _  \     |  |  |  |    /       |           | /       ||   _  \ |  |</span><br><span class="line">|  |_)  |    |  |  |  |   |   (----`---|  |----`|   (----`|  |_)  ||  |</span><br><span class="line">|      /     |  |  |  |    \   \       |  |      \   \    |   _  &lt; |  |</span><br><span class="line">|  |\  \----.|  `--&#x27;  |.----)   |      |  |  .----)   |   |  |_)  ||  |</span><br><span class="line">| _| `._____| \______/ |_______/       |__|  |_______/    |______/ |__|</span><br><span class="line">[rustsbi] Implementation     : RustSBI-QEMU Version 0.2.0-alpha.2</span><br><span class="line">[rustsbi] Platform Name      : riscv-virtio,qemu</span><br><span class="line">[rustsbi] Platform SMP       : 1</span><br><span class="line">[rustsbi] Platform Memory    : 0x80000000..0x88000000</span><br><span class="line">[rustsbi] Boot HART          : 0</span><br><span class="line">[rustsbi] Device Tree Region : 0x87e00000..0x87e010f6</span><br><span class="line">[rustsbi] Firmware Address   : 0x80000000</span><br><span class="line">[rustsbi] Supervisor Address : 0x80200000</span><br><span class="line">[rustsbi] pmp01: 0x00000000..0x80000000 (-wr)</span><br><span class="line">[rustsbi] pmp02: 0x80000000..0x80200000 (---)</span><br><span class="line">[rustsbi] pmp03: 0x80200000..0x88000000 (xwr)</span><br><span class="line">[rustsbi] pmp04: 0x88000000..0x00000000 (-wr)</span><br><span class="line">[kernel] Hello, world!</span><br><span class="line">[TRACE] [kernel] .text [0x80200000, 0x80202000)</span><br><span class="line">[DEBUG] [kernel] .rodata [0x80202000, 0x80203000)</span><br><span class="line">[ INFO] [kernel] .data [0x80203000, 0x80204000)</span><br><span class="line">[ WARN] [kernel] boot_stack top=bottom=0x80214000, lower_bound=0x80204000</span><br><span class="line">[ERROR] [kernel] .bss [0x80214000, 0x80215000)</span><br></pre></td></tr></table></figure>
+
+
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">博主</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/TooUpper">项目</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#arch-Linux"><span class="toc-number">1.1.</span> <span class="toc-text">arch Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WSL2"><span class="toc-number">1.1.1.</span> <span class="toc-text">WSL2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8B%BE%E9%80%89%E9%80%82%E7%94%A8%E4%BA%8ELinux%E7%9A%84Windows%E5%AD%90%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%87%8D%E5%90%AF"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">1.勾选适用于Linux的Windows子系统后重启</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%AF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">2.启用虚拟机功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%8B%E8%BD%BDLinux%E5%86%85%E6%A0%B8%E6%9B%B4%E6%96%B0%E5%8C%85"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">3.下载Linux内核更新包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%B0%86WSL2%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">4.将WSL2设置为默认版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%AE%89%E8%A3%85%E6%89%80%E9%80%89%E7%9A%84Linux%E5%88%86%E5%8F%91"><span class="toc-number">1.1.1.5.</span> <span class="toc-text">5.安装所选的Linux分发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83%E7%9A%84wsl%E7%89%88%E6%9C%AC%E5%92%8C%E5%AF%B9%E5%BA%94%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.1.6.</span> <span class="toc-text">6.查看当前环境的wsl版本和对应子系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%B3%A8%E9%94%80%E5%AE%89%E8%A3%85%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7"><span class="toc-number">1.1.1.7.</span> <span class="toc-text">7.注销安装的Linux子系统账户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%88%A0%E9%99%A4%E5%AE%89%E8%A3%85%E7%9A%84Linux%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.1.8.</span> <span class="toc-text">8.删除安装的Linux子系统</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-number">1.2.</span> <span class="toc-text">换源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c-Rust-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">c&#x2F;Rust 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9B%B4%E6%96%B0-%E5%90%8C%E6%AD%A5arch-Linux%E5%86%85%E6%A0%B8"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1.更新&#x2F;同步arch Linux内核</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-C%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">2.C开发环境配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Rust%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">3.Rust开发环境配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Qemu%E6%A8%A1%E6%8B%9F%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">Qemu模拟器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4-QEMU-%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">确认 QEMU 的版本：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text">运行</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&text=WSL2环境配置"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&is_video=false&description=WSL2环境配置"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WSL2环境配置&body=Check out this article: https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&title=WSL2环境配置"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&name=WSL2环境配置&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://www.tooupper.com/OS/tuos/WSL2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/&t=WSL2环境配置"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2024
+    kay
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">博主</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/TooUpper">项目</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
