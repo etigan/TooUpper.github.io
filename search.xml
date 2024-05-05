@@ -13,15 +13,37 @@
       </tags>
   </entry>
   <entry>
-    <title>crate与模块</title>
-    <url>/Rust/basic/crate%E4%B8%8E%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<h1 id="crate与模块"><a href="#crate与模块" class="headerlink" title="crate与模块"></a>crate与模块</h1><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2>]]></content>
+    <title>用法</title>
+    <url>/Git/%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h1><h3 id="删除远程库中指定文件"><a href="#删除远程库中指定文件" class="headerlink" title="删除远程库中指定文件"></a>删除远程库中指定文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rm -r --cached a/2.txt //删除a目录下的2.txt文件   删除a目录git rm -r --cached a</span><br><span class="line">git commit -m &quot;删除a目录下的2.txt文件&quot; </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
-        <category>Rust</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>Rust</tag>
-        <tag>Rust-基础</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装与配置</title>
+    <url>/Git/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h1><h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &#x27;kay.wang&#x27;</span><br><span class="line"></span><br><span class="line">git config --global user.email &#x27;cn.kay.wang@gmail.com&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="生成本地密钥"><a href="#生成本地密钥" class="headerlink" title="生成本地密钥"></a>生成本地密钥</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &#x27;cn.kay.wang@gmail.com&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>下面一路回车即可</p>
+<h1 id="答疑"><a href="#答疑" class="headerlink" title="答疑"></a>答疑</h1><h3 id="bash-ssh-keygen-command-not-found"><a href="#bash-ssh-keygen-command-not-found" class="headerlink" title="-bash: ssh-keygen: command not found"></a>-bash: ssh-keygen: command not found</h3><p>未安装SSH</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pacman -S openssh</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -83,6 +105,18 @@
       </tags>
   </entry>
   <entry>
+    <title>crate与模块</title>
+    <url>/Rust/basic/crate%E4%B8%8E%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<h1 id="crate与模块"><a href="#crate与模块" class="headerlink" title="crate与模块"></a>crate与模块</h1><h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2>]]></content>
+      <categories>
+        <category>Rust</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>Rust-基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Rust版本概述</title>
     <url>/Rust/basic/%E7%89%88%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="Rust版本概述"><a href="#Rust版本概述" class="headerlink" title="Rust版本概述"></a>Rust版本概述</h1><h2 id="语义化版本"><a href="#语义化版本" class="headerlink" title="语义化版本"></a>语义化版本</h2><ul>
@@ -110,40 +144,6 @@
       <tags>
         <tag>Rust</tag>
         <tag>Rust-基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用法</title>
-    <url>/Git/%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="简单用法"><a href="#简单用法" class="headerlink" title="简单用法"></a>简单用法</h1><h3 id="删除远程库中指定文件"><a href="#删除远程库中指定文件" class="headerlink" title="删除远程库中指定文件"></a>删除远程库中指定文件</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git rm -r --cached a/2.txt //删除a目录下的2.txt文件   删除a目录git rm -r --cached a</span><br><span class="line">git commit -m &quot;删除a目录下的2.txt文件&quot; </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装与配置</title>
-    <url>/Git/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h1 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h1><h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &#x27;kay.wang&#x27;</span><br><span class="line"></span><br><span class="line">git config --global user.email &#x27;cn.kay.wang@gmail.com&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="生成本地密钥"><a href="#生成本地密钥" class="headerlink" title="生成本地密钥"></a>生成本地密钥</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &#x27;cn.kay.wang@gmail.com&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>下面一路回车即可</p>
-<h1 id="答疑"><a href="#答疑" class="headerlink" title="答疑"></a>答疑</h1><h3 id="bash-ssh-keygen-command-not-found"><a href="#bash-ssh-keygen-command-not-found" class="headerlink" title="-bash: ssh-keygen: command not found"></a>-bash: ssh-keygen: command not found</h3><p>未安装SSH</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo pacman -S openssh</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -208,6 +208,19 @@
 
 
 
+]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>Rust</tag>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>实现批处理</title>
+    <url>/OS/tuos/%E5%AE%9E%E7%8E%B0%E6%89%B9%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h1><h2 id="模拟客户端应用程序"><a href="#模拟客户端应用程序" class="headerlink" title="模拟客户端应用程序"></a>模拟客户端应用程序</h2><h3 id="应用程序内存布局"><a href="#应用程序内存布局" class="headerlink" title="应用程序内存布局"></a>应用程序内存布局</h3><h3 id="调用系统ABI"><a href="#调用系统ABI" class="headerlink" title="调用系统ABI"></a>调用系统ABI</h3><h2 id="实现批处理功能"><a href="#实现批处理功能" class="headerlink" title="实现批处理功能"></a>实现批处理功能</h2><h2 id="二者之间的特权级切换"><a href="#二者之间的特权级切换" class="headerlink" title="二者之间的特权级切换"></a>二者之间的特权级切换</h2><p><img src="C:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240422172905612.png" alt="image-20240422172905612"></p>
 ]]></content>
       <categories>
         <category>OS</category>
@@ -360,19 +373,6 @@
 <p><strong>测试功能：</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成内核镜像</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">rust-objcopy --strip-all target/riscv64gc-unknown-none-elf/release/os -O binary target/riscv64gc-unknown-none-elf/release/os.bin</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动Qemu模拟器</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">qemu-system-riscv64 \</span></span><br><span class="line"><span class="language-bash">    -machine virt \</span></span><br><span class="line"><span class="language-bash">    -nographic \</span></span><br><span class="line"><span class="language-bash">    -bios ../bootloader/rustsbi-qemu.bin \</span></span><br><span class="line"><span class="language-bash">    -device loader,file=target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">运行结果如图：</span></span><br><span class="line">[rustsbi] RustSBI version 0.2.2, adapting to RISC-V SBI v1.0.0</span><br><span class="line">.______       __    __      _______.___________.  _______..______   __</span><br><span class="line">|   _  \     |  |  |  |    /       |           | /       ||   _  \ |  |</span><br><span class="line">|  |_)  |    |  |  |  |   |   (----`---|  |----`|   (----`|  |_)  ||  |</span><br><span class="line">|      /     |  |  |  |    \   \       |  |      \   \    |   _  &lt; |  |</span><br><span class="line">|  |\  \----.|  `--&#x27;  |.----)   |      |  |  .----)   |   |  |_)  ||  |</span><br><span class="line">| _| `._____| \______/ |_______/       |__|  |_______/    |______/ |__|</span><br><span class="line"></span><br><span class="line">[rustsbi] Implementation: RustSBI-QEMU Version 0.1.1</span><br><span class="line">[rustsbi-dtb] Hart count: cluster0 with 1 cores</span><br><span class="line">[rustsbi] misa: RV64ACDFHIMSU</span><br><span class="line">[rustsbi] mideleg: ssoft, stimer, sext (0x1666)</span><br><span class="line">[rustsbi] medeleg: ima, ia, bkpt, la, sa, uecall, ipage, lpage, spage (0xb1ab)</span><br><span class="line">[rustsbi] pmp0: 0x10000000 ..= 0x10001fff (rw-)</span><br><span class="line">[rustsbi] pmp1: 0x2000000 ..= 0x200ffff (rw-)</span><br><span class="line">[rustsbi] pmp2: 0xc000000 ..= 0xc3fffff (rw-)</span><br><span class="line">[rustsbi] pmp3: 0x80000000 ..= 0x8fffffff (rwx)</span><br><span class="line">[rustsbi] enter supervisor 0x80200000</span><br><span class="line">Hello, world!</span><br><span class="line">Panicked at src/main.rs:25 Shutdown machine!</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>OS</category>
-      </categories>
-      <tags>
-        <tag>Rust</tag>
-        <tag>OS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>实现批处理</title>
-    <url>/OS/tuos/%E5%AE%9E%E7%8E%B0%E6%89%B9%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h1 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h1><h2 id="模拟客户端应用程序"><a href="#模拟客户端应用程序" class="headerlink" title="模拟客户端应用程序"></a>模拟客户端应用程序</h2><h3 id="应用程序内存布局"><a href="#应用程序内存布局" class="headerlink" title="应用程序内存布局"></a>应用程序内存布局</h3><h3 id="调用系统ABI"><a href="#调用系统ABI" class="headerlink" title="调用系统ABI"></a>调用系统ABI</h3><h2 id="实现批处理功能"><a href="#实现批处理功能" class="headerlink" title="实现批处理功能"></a>实现批处理功能</h2><h2 id="二者之间的特权级切换"><a href="#二者之间的特权级切换" class="headerlink" title="二者之间的特权级切换"></a>二者之间的特权级切换</h2><p><img src="C:\Users\15751\AppData\Roaming\Typora\typora-user-images\image-20240422172905612.png" alt="image-20240422172905612"></p>
 ]]></content>
       <categories>
         <category>OS</category>
